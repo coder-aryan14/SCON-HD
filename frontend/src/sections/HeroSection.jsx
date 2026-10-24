@@ -20,13 +20,72 @@ function getFrameSource(index) {
   return `/video_image_frames/${folder}/ezgif-frame-${frameName}.jpg`;
 }
 
+function getClosestLoadedFrame(loadedFrames, requestedIndex) {
+  if (loadedFrames.has(requestedIndex)) return requestedIndex;
+
+  for (let distance = 1; distance < totalFrameCount; distance += 1) {
+    const previousFrame = requestedIndex - distance;
+    const nextFrame = requestedIndex + distance;
+
+    if (previousFrame >= 0 && loadedFrames.has(previousFrame)) {
+      return previousFrame;
+    }
+    if (nextFrame < totalFrameCount && loadedFrames.has(nextFrame)) {
+      return nextFrame;
+    }
+  }
+
+  return null;
+}
+
 export default function HeroSection() {
   const trackRef = useRef(null);
   const requestedFrameIndexRef = useRef(0);
-  const [frameIndex, setFrameIndex] = useState(0);
+  const loadedFramesRef = useRef(new Set());
   const [displayedFrameIndex, setDisplayedFrameIndex] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
-  requestedFrameIndexRef.current = frameIndex;
+
+  useEffect(() => {
+    let isMounted = true;
+    const workerCount = 6;
+
+    async function preloadFrames(workerIndex) {
+      for (
+        let index = workerIndex;
+        index < totalFrameCount && isMounted;
+        index += workerCount
+      ) {
+        const image = new Image();
+        image.decoding = "async";
+        const loaded = await new Promise((resolve) => {
+          image.onload = () => resolve(true);
+          image.onerror = () => resolve(false);
+          image.src = getFrameSource(index);
+        });
+
+        if (!isMounted) return;
+        if (!loaded) {
+          console.error(`Failed to load hero frame: ${getFrameSource(index)}`);
+          continue;
+        }
+
+        loadedFramesRef.current.add(index);
+        const closestFrame = getClosestLoadedFrame(
+          loadedFramesRef.current,
+          requestedFrameIndexRef.current,
+        );
+        if (closestFrame !== null) setDisplayedFrameIndex(closestFrame);
+      }
+    }
+
+    for (let workerIndex = 0; workerIndex < workerCount; workerIndex += 1) {
+      preloadFrames(workerIndex);
+    }
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   useEffect(() => {
     let animationFrameId = 0;
@@ -45,11 +104,15 @@ export default function HeroSection() {
       const frameProgress = Math.min(progress / frameSequenceEnd, 1);
       const nextFrameIndex = Math.round(frameProgress * (totalFrameCount - 1));
 
+      requestedFrameIndexRef.current = nextFrameIndex;
+      const closestFrame = getClosestLoadedFrame(
+        loadedFramesRef.current,
+        nextFrameIndex,
+      );
+      if (closestFrame !== null) setDisplayedFrameIndex(closestFrame);
+
       setScrollProgress((currentProgress) =>
         currentProgress === progress ? currentProgress : progress,
-      );
-      setFrameIndex((currentIndex) =>
-        currentIndex === nextFrameIndex ? currentIndex : nextFrameIndex,
       );
     }
 
@@ -119,17 +182,6 @@ export default function HeroSection() {
           alt=""
           aria-hidden="true"
           draggable="false"
-        />
-        <img
-          className="hero-frame-preload"
-          src={getFrameSource(frameIndex)}
-          alt=""
-          aria-hidden="true"
-          onLoad={() => {
-            if (requestedFrameIndexRef.current === frameIndex) {
-              setDisplayedFrameIndex(frameIndex);
-            }
-          }}
         />
         <SiteHeader />
         <div className="hero-scroll-copy" aria-live="off">
