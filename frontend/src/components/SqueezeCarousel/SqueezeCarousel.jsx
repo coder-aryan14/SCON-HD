@@ -8,14 +8,6 @@ import React, {
 } from "react";
 import "./SqueezeCarousel.css";
 
-const shares = [-0.06, 0.61, 0.3, 0.15];
-const stretchedShares = [0, 0.71, 0.4, 0.25];
-const squeezedShares = [-0.12, 0.59, 0.28, 0.13];
-
-function clamp(value, low, high) {
-  return Math.max(low, Math.min(high, value));
-}
-
 function useReducedMotion() {
   const [reduced, setReduced] = useState(false);
 
@@ -35,12 +27,9 @@ export default function SqueezeCarousel({
   defaultIndex = 0,
   onIndexChange,
   height = "clamp(180px, 32cqi, 340px)",
-  slatWidth = 8,
-  slatGap = 8,
   gap = 16,
   radius = 6,
   duration = 1000,
-  hoverGrow = true,
   autoplay = false,
   interval = 6000,
   controls = true,
@@ -51,8 +40,7 @@ export default function SqueezeCarousel({
 }) {
   const count = slides.length;
   const wrap = (index) => ((index % count) + count) % count;
-  const slats = clamp(count - 4, 1, 3);
-  const visible = 4 + slats;
+  const visible = Math.min(count, 4);
   const reduced = useReducedMotion();
   const transitionDuration = reduced ? 0 : duration;
   const ids = useId();
@@ -63,7 +51,6 @@ export default function SqueezeCarousel({
   const [column, setColumn] = useState(0);
   const [slid, setSlid] = useState(0);
   const [still, setStill] = useState(false);
-  const [hover, setHover] = useState(-1);
   const [paused, setPaused] = useState(false);
   const [cards, setCards] = useState(() =>
     Array.from({ length: visible }, (_, index) => ({
@@ -133,19 +120,6 @@ export default function SqueezeCarousel({
     [count, settle, transitionDuration],
   );
 
-  const goTo = useCallback(
-    (index) => {
-      const forwardSteps = wrap(index - open);
-      if (forwardSteps === 0) return;
-      step(
-        forwardSteps <= count / 2
-          ? forwardSteps
-          : forwardSteps - count,
-      );
-    },
-    [count, open, step],
-  );
-
   useEffect(() => {
     onIndexChange?.(open);
   }, [onIndexChange, open]);
@@ -158,31 +132,16 @@ export default function SqueezeCarousel({
 
   if (!count) return null;
 
-  const activeShares =
-    hoverGrow && hover >= 0 && hover <= 3 && !reduced ? null : shares;
-  const slat = typeof slatWidth === "number" ? `${slatWidth}px` : slatWidth;
-  const widthOf = (col) => {
-    if (col < 0 || col > 3) return slat;
-    const share = activeShares
-      ? shares[col]
-      : hover === col
-        ? stretchedShares[col]
-        : squeezedShares[col];
-    return col === 0
-      ? `calc(var(--sq-hero) + var(--sq-room) * ${share})`
-      : `calc(var(--sq-room) * ${share})`;
-  };
-  const move = `translateX(calc(${slid} * (${slat} + var(--sq-gap))))`;
+  const widthOf = (col) => (col === 0 ? "var(--sq-hero)" : "var(--sq-card-width)");
+  const move = `translateX(calc(${slid} * (var(--sq-card-width) + var(--sq-gap))))`;
   const carouselStyle = {
     "--sq-h": typeof height === "number" ? `${height}px` : height,
     "--sq-gap": typeof gap === "number" ? `${gap}px` : gap,
-    "--sq-slat-gap": typeof slatGap === "number" ? `${slatGap}px` : slatGap,
     "--sq-radius": typeof radius === "number" ? `${radius}px` : radius,
     "--sq-ms": `${transitionDuration}ms`,
     "--sq-fill": accent,
     "--sq-on-fill": accentForeground,
-    "--sq-slats": slats,
-    "--sq-slat-width": slat,
+    "--sq-card-count": Math.max(visible - 1, 1),
   };
 
   function handleKeyDown(event) {
@@ -202,7 +161,6 @@ export default function SqueezeCarousel({
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => {
         setPaused(false);
-        setHover(-1);
       }}
       onFocusCapture={() => setPaused(true)}
       onBlurCapture={() => setPaused(false)}
@@ -248,16 +206,10 @@ export default function SqueezeCarousel({
                 aria-label={slide.title}
                 tabIndex={front ? 0 : -1}
                 className="sq-card"
-                onMouseMove={() => hoverGrow && setHover(col)}
                 onClick={() => col > 0 && step(col)}
                 style={{
                   width,
-                  marginLeft:
-                    place === 0
-                      ? 0
-                      : col < 4
-                        ? "var(--sq-gap)"
-                        : "var(--sq-slat-gap)",
+                  marginLeft: place === 0 ? 0 : "var(--sq-gap)",
                   borderRadius: `min(var(--sq-radius), calc(${width} / 2))`,
                   transitionDuration: still ? "0s" : "var(--sq-ms)",
                 }}

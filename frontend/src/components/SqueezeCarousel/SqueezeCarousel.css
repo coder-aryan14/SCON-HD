@@ -2,10 +2,8 @@
   width: 100%;
   container-type: inline-size;
   --sq-hero: min(calc(var(--sq-h) * 16 / 9), 54cqi);
-  --sq-room: calc(
-    100cqi - var(--sq-hero) - var(--sq-slats) * var(--sq-slat-gap) - 3 *
-      var(--sq-gap) - var(--sq-slats) * var(--sq-slat-width)
-  );
+  --sq-room: calc(100cqi - var(--sq-hero) - var(--sq-card-count) * var(--sq-gap));
+  --sq-card-width: calc(var(--sq-room) / var(--sq-card-count));
 }
 
 .sq-controls {
