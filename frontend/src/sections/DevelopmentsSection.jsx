@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import ArrowIcon from "../components/ArrowIcon.jsx";
+import React from "react";
+import SqueezeCarousel from "../components/SqueezeCarousel/SqueezeCarousel.jsx";
 
 const developments = {
   Residential: [
@@ -104,27 +104,26 @@ const developments = {
   ],
 };
 
+const slides = Object.entries(developments).flatMap(([category, projects]) =>
+  projects.map((project, index) => ({
+    id: `${category}-${index}`,
+    title: project.name,
+    description: `${category} address at ${project.location}.`,
+    image: project.image,
+    imageAlt: `${project.name}, ${project.location}`,
+    overlay: (
+      <span className="development-slide-label">
+        <span>{category}</span>
+        <strong>{project.name}</strong>
+        <small>{project.location}</small>
+      </span>
+    ),
+    action: "Enquire about this project",
+    href: `mailto:hello@scon.com?subject=${encodeURIComponent(`Enquiry about ${project.name}`)}`,
+  })),
+);
+
 export default function DevelopmentsSection() {
-  const [category, setCategory] = useState("Residential");
-  const [activeIndex, setActiveIndex] = useState(0);
-  const projects = developments[category];
-  const activeProject = projects[activeIndex];
-  const visibleProjects = [1, 2, 3].map(
-    (offset) => projects[(activeIndex + offset) % projects.length],
-  );
-
-  function changeCategory(nextCategory) {
-    setCategory(nextCategory);
-    setActiveIndex(0);
-  }
-
-  function changeProject(offset) {
-    setActiveIndex(
-      (currentIndex) =>
-        (currentIndex + offset + projects.length) % projects.length,
-    );
-  }
-
   return (
     <section className="developments" id="developments">
       <div className="developments-inner">
@@ -141,78 +140,21 @@ export default function DevelopmentsSection() {
             Considered residences.
           </h2>
           <p>
-            Explore a portfolio of {category.toLowerCase()} developments in
-            some of Pune&apos;s most established neighbourhoods.
+            Explore a selection of residential and commercial developments
+            across some of Pune&apos;s most established neighbourhoods.
           </p>
         </div>
 
-        <div className="development-gallery" data-scroll-reveal="3">
-          <article className="featured-development">
-            <img src={activeProject.image} alt={activeProject.name} />
-            <div className="featured-shade" />
-            <div className="featured-caption">
-              <div>
-                <h3>{activeProject.name}</h3>
-                <p>{activeProject.location}</p>
-              </div>
-              <button
-                className="featured-next"
-                type="button"
-                aria-label="View next development"
-                onClick={() => changeProject(1)}
-              >
-                <ArrowIcon />
-              </button>
-            </div>
-          </article>
-          {visibleProjects.map((project, index) => (
-            <button
-              className="development-thumb"
-              key={`${category}-${activeIndex}-${index}`}
-              type="button"
-              onClick={() => changeProject(index + 1)}
-              aria-label={`View ${project.name}, ${project.location}`}
-            >
-              <img src={project.image} alt="" />
-            </button>
-          ))}
-        </div>
-
-        <div className="developments-controls" data-scroll-reveal="4">
-          <div className="development-pagination" aria-label="Gallery controls">
-            <button
-              className="round-control"
-              type="button"
-              aria-label="Previous development"
-              onClick={() => changeProject(-1)}
-            >
-              <span aria-hidden="true">‹</span>
-            </button>
-            <button
-              className="round-control"
-              type="button"
-              aria-label="Next development"
-              onClick={() => changeProject(1)}
-            >
-              <span aria-hidden="true">›</span>
-            </button>
-            <span className="development-count" aria-live="polite">
-              {activeIndex + 1} / {projects.length}
-            </span>
-          </div>
-          <div className="development-categories" aria-label="Development type">
-            {Object.keys(developments).map((type) => (
-              <button
-                className={`category-pill${category === type ? " is-active" : ""}`}
-                type="button"
-                key={type}
-                aria-pressed={category === type}
-                onClick={() => changeCategory(type)}
-              >
-                {type}
-              </button>
-            ))}
-          </div>
+        <div className="development-carousel" data-scroll-reveal="3">
+          <SqueezeCarousel
+            slides={slides}
+            label="Selected developments"
+            height="clamp(180px, 26cqi, 310px)"
+            accent="#203d60"
+            accentForeground="#ffffff"
+            autoplay
+            interval={3000}
+          />
         </div>
       </div>
     </section>

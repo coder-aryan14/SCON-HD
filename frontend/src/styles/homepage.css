@@ -683,116 +683,28 @@ button {
   line-height: 1.55;
 }
 
-.development-gallery {
-  display: grid;
-  height: clamp(210px, 24vw, 300px);
-  grid-template-columns: 3.2fr 1fr 1fr 1fr;
-  gap: 12px;
+.development-carousel {
+  margin-top: 28px;
 }
 
-.featured-development,
-.development-thumb {
-  position: relative;
-  min-width: 0;
-  overflow: hidden;
-}
-
-.featured-development img,
-.development-thumb img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.featured-development img,
-.development-thumb img {
-  transition: transform 350ms ease;
-}
-
-.featured-development:hover img,
-.development-thumb:hover img {
-  transform: scale(1.04);
-}
-
-.featured-development {
-  color: #fff;
-  background: #6c6a61;
-}
-
-.featured-shade {
-  position: absolute;
-  inset: 35% 0 0;
-  background: linear-gradient(0deg, rgb(0 0 0 / 72%), transparent);
-  pointer-events: none;
-}
-
-.featured-caption {
-  position: absolute;
-  right: 24px;
-  bottom: 20px;
-  left: 24px;
+.development-slide-label {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+  text-align: left;
 }
 
-.featured-caption h3 {
-  margin: 0 0 3px;
-  font-size: 17px;
+.development-slide-label > span,
+.development-slide-label small {
+  color: rgb(255 255 255 / 82%);
+  font-size: 11px;
+}
+
+.development-slide-label strong {
+  font-family: "Cabinet Grotesk", sans-serif;
+  font-size: 18px;
   font-weight: 600;
-}
-
-.featured-caption p {
-  margin: 0;
-  font-size: 12px;
-}
-
-.featured-next,
-.round-control {
-  display: grid;
-  flex: 0 0 auto;
-  place-items: center;
-  padding: 0;
-  border: 0;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-.featured-next {
-  width: 44px;
-  height: 44px;
-  color: #272727;
-  background: #fff;
-}
-
-.featured-next .arrow-icon {
-  width: 23px;
-  height: 23px;
-}
-
-.development-thumb {
-  padding: 0;
-  border: 0;
-  background: #e5e0d9;
-  cursor: pointer;
-}
-
-.development-thumb:focus-visible,
-.featured-next:focus-visible,
-.round-control:focus-visible,
-.category-pill:focus-visible {
-  outline: 3px solid #b49a79;
-  outline-offset: 3px;
-}
-
-.developments-controls {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  margin-top: 24px;
 }
 
 .redevelopment {
@@ -875,64 +787,6 @@ button {
 .redevelopment-cta {
   min-width: 170px;
   margin-top: 11px;
-}
-
-.development-pagination,
-.development-categories {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.round-control {
-  width: 40px;
-  height: 40px;
-  color: #fff;
-  background: #b49a79;
-  font-family: inherit;
-  font-size: 32px;
-  line-height: 1;
-  transition: background-color 180ms ease;
-}
-
-.round-control:hover {
-  background: #9f8464;
-}
-
-.round-control span {
-  position: relative;
-  top: -2px;
-}
-
-.development-count {
-  min-width: 48px;
-  margin-left: 12px;
-  color: #262626;
-  font-size: 13px;
-  font-variant-numeric: tabular-nums;
-}
-
-.category-pill {
-  min-width: 130px;
-  min-height: 40px;
-  padding: 0 22px;
-  border: 1px solid #c5ad91;
-  border-radius: 999px;
-  color: #b49a79;
-  background: #fff;
-  font: inherit;
-  font-size: 13px;
-  cursor: pointer;
-  transition:
-    color 180ms ease,
-    background-color 180ms ease,
-    border-color 180ms ease;
-}
-
-.category-pill.is-active {
-  border-color: #203d60;
-  color: #fff;
-  background: #203d60;
 }
 
 .contact-section {
@@ -1208,52 +1062,6 @@ button {
 
   .developments-intro > p {
     font-size: 13px;
-  }
-
-  .development-gallery {
-    height: auto;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    grid-template-rows: 250px 130px;
-    gap: 8px;
-  }
-
-  .featured-development {
-    grid-column: 1 / -1;
-  }
-
-  .featured-caption {
-    right: 14px;
-    bottom: 14px;
-    left: 14px;
-  }
-
-  .featured-caption h3 {
-    font-size: 15px;
-  }
-
-  .featured-caption p {
-    font-size: 11px;
-  }
-
-  .featured-next {
-    width: 40px;
-    height: 40px;
-  }
-
-  .developments-controls {
-    flex-wrap: wrap;
-    margin-top: 18px;
-  }
-
-  .development-categories {
-    gap: 8px;
-  }
-
-  .category-pill {
-    min-width: 0;
-    min-height: 38px;
-    padding: 0 15px;
-    font-size: 12px;
   }
 
   .redevelopment {
