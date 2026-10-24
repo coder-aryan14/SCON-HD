@@ -17,7 +17,10 @@ function getFrameSource(index) {
       : frameNumber - firstSequenceLength;
   const frameName = String(folderFrameNumber).padStart(3, "0");
 
-  return `/video_image_frames/${folder}/ezgif-frame-${frameName}.jpg`;
+  return (
+    `${import.meta.env.BASE_URL}video_image_frames/${folder}/` +
+    `ezgif-frame-${frameName}.jpg`
+  );
 }
 
 function getClosestLoadedFrame(loadedFrames, requestedIndex) {
@@ -42,48 +45,88 @@ export default function HeroSection() {
   const trackRef = useRef(null);
   const requestedFrameIndexRef = useRef(0);
   const loadedFramesRef = useRef(new Set());
+  const preloadNearbyFramesRef = useRef(() => {});
   const [displayedFrameIndex, setDisplayedFrameIndex] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
     let isMounted = true;
-    const workerCount = 6;
+    const maxConcurrentLoads = 4;
+    const preloadRadius = 12;
+    const queuedFrames = new Set();
+    let frameQueue = [];
+    let activeLoads = 0;
 
-    async function preloadFrames(workerIndex) {
-      for (
-        let index = workerIndex;
-        index < totalFrameCount && isMounted;
-        index += workerCount
+    function loadQueuedFrames() {
+      while (
+        isMounted &&
+        activeLoads < maxConcurrentLoads &&
+        frameQueue.length > 0
       ) {
+        const index = frameQueue.shift();
+        queuedFrames.delete(index);
+        activeLoads += 1;
         const image = new Image();
         image.decoding = "async";
-        const loaded = await new Promise((resolve) => {
-          image.onload = () => resolve(true);
-          image.onerror = () => resolve(false);
-          image.src = getFrameSource(index);
-        });
+        const source = getFrameSource(index);
+        const finishLoading = (loaded) => {
+          activeLoads -= 1;
+          if (isMounted && loaded) {
+            loadedFramesRef.current.add(index);
+            const closestFrame = getClosestLoadedFrame(
+              loadedFramesRef.current,
+              requestedFrameIndexRef.current,
+            );
+            if (closestFrame !== null) setDisplayedFrameIndex(closestFrame);
+          } else if (isMounted) {
+            console.error(`Failed to load hero frame: ${source}`);
+          }
+          loadQueuedFrames();
+        };
 
-        if (!isMounted) return;
-        if (!loaded) {
-          console.error(`Failed to load hero frame: ${getFrameSource(index)}`);
-          continue;
-        }
-
-        loadedFramesRef.current.add(index);
-        const closestFrame = getClosestLoadedFrame(
-          loadedFramesRef.current,
-          requestedFrameIndexRef.current,
-        );
-        if (closestFrame !== null) setDisplayedFrameIndex(closestFrame);
+        image.onload = () => finishLoading(true);
+        image.onerror = () => finishLoading(false);
+        image.src = source;
       }
     }
 
-    for (let workerIndex = 0; workerIndex < workerCount; workerIndex += 1) {
-      preloadFrames(workerIndex);
+    function preloadNearbyFrames(requestedIndex) {
+      frameQueue = frameQueue.filter((index) => {
+        const isNearby =
+          Math.abs(index - requestedIndex) <= preloadRadius;
+        if (!isNearby) queuedFrames.delete(index);
+        return isNearby;
+      });
+
+      for (
+        let index = Math.max(0, requestedIndex - preloadRadius);
+        index <= Math.min(totalFrameCount - 1, requestedIndex + preloadRadius);
+        index += 1
+      ) {
+        if (
+          !loadedFramesRef.current.has(index) &&
+          !queuedFrames.has(index)
+        ) {
+          frameQueue.push(index);
+          queuedFrames.add(index);
+        }
+      }
+
+      frameQueue.sort(
+        (first, second) =>
+          Math.abs(first - requestedIndex) - Math.abs(second - requestedIndex),
+      );
+      loadQueuedFrames();
     }
+
+    preloadNearbyFramesRef.current = preloadNearbyFrames;
+    preloadNearbyFrames(requestedFrameIndexRef.current);
 
     return () => {
       isMounted = false;
+      preloadNearbyFramesRef.current = () => {};
+      frameQueue = [];
+      queuedFrames.clear();
     };
   }, []);
 
@@ -105,6 +148,7 @@ export default function HeroSection() {
       const nextFrameIndex = Math.round(frameProgress * (totalFrameCount - 1));
 
       requestedFrameIndexRef.current = nextFrameIndex;
+      preloadNearbyFramesRef.current(nextFrameIndex);
       const closestFrame = getClosestLoadedFrame(
         loadedFramesRef.current,
         nextFrameIndex,
