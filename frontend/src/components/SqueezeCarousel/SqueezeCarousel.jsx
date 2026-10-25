@@ -33,6 +33,10 @@ export default function SqueezeCarousel({
   autoplay = false,
   interval = 6000,
   controls = true,
+  controlsPlacement = "top",
+  showCounter = false,
+  controlsAfter = null,
+  heroNextButton = false,
   accent = "#203d60",
   accentForeground = "#ffffff",
   label = "Featured",
@@ -154,6 +158,28 @@ export default function SqueezeCarousel({
     }
   }
 
+  const controlsElement = controls && count > 1 ? (
+    <div
+      className={`sq-controls${controlsPlacement === "below" ? " sq-controls--below" : ""}`}
+    >
+      <div className="sq-control-buttons">
+        <ArrowButton
+          direction="previous"
+          onClick={() => step(-1)}
+        />
+        <ArrowButton direction="next" onClick={() => step(1)} />
+      </div>
+      {showCounter && (
+        <span className="sq-counter" aria-live="polite">
+          {open + 1} / {count}
+        </span>
+      )}
+      {controlsAfter && (
+        <div className="sq-controls-after">{controlsAfter}</div>
+      )}
+    </div>
+  ) : null;
+
   return (
     <div
       className={`squeeze-carousel ${className}`.trim()}
@@ -165,15 +191,7 @@ export default function SqueezeCarousel({
       onFocusCapture={() => setPaused(true)}
       onBlurCapture={() => setPaused(false)}
     >
-      {controls && count > 1 && (
-        <div className="sq-controls">
-          <ArrowButton
-            direction="previous"
-            onClick={() => step(-1)}
-          />
-          <ArrowButton direction="next" onClick={() => step(1)} />
-        </div>
-      )}
+      {controlsPlacement !== "below" && controlsElement}
 
       <div className="sq-viewport">
         <div
@@ -227,7 +245,25 @@ export default function SqueezeCarousel({
             );
           })}
         </div>
+        {heroNextButton && count > 1 && (
+          <a
+            className="sq-hero-next"
+            href={slides[open].href ?? "#contact"}
+            aria-label={`View ${slides[open].title} project`}
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M4.5 12h14m-6-6 6 6-6 6"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </a>
+        )}
       </div>
+      {controlsPlacement === "below" && controlsElement}
 
       <div
         id={`${ids}-panel`}

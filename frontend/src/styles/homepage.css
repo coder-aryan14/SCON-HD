@@ -687,6 +687,37 @@ button {
   margin-top: 28px;
 }
 
+.development-categories {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.development-categories button {
+  min-width: 100px;
+  padding: 10px 20px;
+  border: 1px solid #b49a79;
+  border-radius: 999px;
+  color: #b49a79;
+  background: #fff;
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  transition:
+    color 180ms ease,
+    background-color 180ms ease;
+}
+
+.development-categories button:last-child {
+  min-width: 112px;
+}
+
+.development-categories button.is-active {
+  border-color: #203d60;
+  color: #fff;
+  background: #203d60;
+}
+
 .development-slide-label {
   display: flex;
   flex-direction: column;
@@ -1062,6 +1093,16 @@ button {
 
   .developments-intro > p {
     font-size: 13px;
+  }
+
+  .development-categories {
+    gap: 6px;
+  }
+
+  .development-categories button {
+    min-width: 0;
+    padding: 9px 12px;
+    font-size: 11px;
   }
 
   .redevelopment {

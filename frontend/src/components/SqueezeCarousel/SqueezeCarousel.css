@@ -13,6 +13,11 @@
   margin-bottom: 16px;
 }
 
+.sq-control-buttons {
+  display: flex;
+  gap: 8px;
+}
+
 .sq-arrow {
   display: grid;
   width: 36px;
@@ -20,7 +25,7 @@
   place-items: center;
   padding: 0;
   border: 0;
-  border-radius: 6px;
+  border-radius: 50%;
   color: var(--sq-on-fill);
   background: var(--sq-fill);
   cursor: pointer;
@@ -40,9 +45,73 @@
 }
 
 .sq-viewport {
+  position: relative;
   width: 100%;
   height: var(--sq-h);
   overflow: hidden;
+}
+
+.sq-hero-next {
+  position: absolute;
+  bottom: 24px;
+  left: calc(var(--sq-hero) - 76px);
+  z-index: 2;
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  color: #171615;
+  background: #fff;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 180ms ease;
+}
+
+.sq-hero-next:hover {
+  transform: translateX(2px);
+}
+
+.sq-hero-next:focus-visible {
+  outline: 2px solid var(--sq-fill);
+  outline-offset: 3px;
+}
+
+.sq-controls--below {
+  align-items: center;
+  justify-content: flex-start;
+  margin: 30px 0 0;
+}
+
+.sq-controls--below .sq-arrow {
+  width: 48px;
+  height: 48px;
+  border: 1px solid #b49a79;
+  border-radius: 50%;
+}
+
+.sq-controls--below .sq-arrow:first-child {
+  color: #b49a79;
+  background: #fff;
+}
+
+.sq-controls--below .sq-arrow:last-child {
+  border-color: #b49a79;
+  color: #fff;
+  background: #b49a79;
+}
+
+.sq-counter {
+  margin-left: 20px;
+  color: #171615;
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+.sq-controls-after {
+  margin-left: auto;
 }
 
 .sq-strip {
@@ -140,7 +209,7 @@
   gap: 8px;
   padding: 10px 16px;
   border: 0;
-  border-radius: 6px;
+  border-radius: 999px;
   color: var(--sq-on-fill);
   background: var(--sq-fill);
   font: inherit;
@@ -156,12 +225,35 @@
     --sq-hero: min(calc(var(--sq-h) * 16 / 9), 54cqi);
   }
 
-  .sq-controls {
-    margin-bottom: 12px;
-  }
-
   .sq-details {
     margin-top: 18px;
+  }
+
+  .sq-controls--below {
+    flex-wrap: wrap;
+    margin-top: 20px;
+    gap: 10px;
+  }
+
+  .sq-controls--below .sq-arrow {
+    width: 40px;
+    height: 40px;
+  }
+
+  .sq-counter {
+    margin-left: 6px;
+    font-size: 13px;
+  }
+
+  .sq-controls-after {
+    flex-basis: 100%;
+  }
+
+  .sq-hero-next {
+    bottom: 14px;
+    left: calc(var(--sq-hero) - 54px);
+    width: 38px;
+    height: 38px;
   }
 
   .sq-detail p {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import SqueezeCarousel from "../components/SqueezeCarousel/SqueezeCarousel.jsx";
 
 const developments = {
@@ -107,6 +107,7 @@ const developments = {
 const slides = Object.entries(developments).flatMap(([category, projects]) =>
   projects.map((project, index) => ({
     id: `${category}-${index}`,
+    category,
     title: project.name,
     description: `${category} address at ${project.location}.`,
     image: project.image,
@@ -118,12 +119,16 @@ const slides = Object.entries(developments).flatMap(([category, projects]) =>
         <small>{project.location}</small>
       </span>
     ),
-    action: "Enquire about this project",
-    href: `mailto:hello@scon.com?subject=${encodeURIComponent(`Enquiry about ${project.name}`)}`,
+    href: "#contact",
   })),
 );
 
 export default function DevelopmentsSection() {
+  const [activeCategory, setActiveCategory] = useState("Residential");
+  const categorySlides = slides.filter(
+    (slide) => slide.category === activeCategory,
+  );
+
   return (
     <section className="developments" id="developments">
       <div className="developments-inner">
@@ -147,11 +152,35 @@ export default function DevelopmentsSection() {
 
         <div className="development-carousel" data-scroll-reveal="3">
           <SqueezeCarousel
-            slides={slides}
+            key={activeCategory}
+            slides={categorySlides}
             label="Selected developments"
             height="clamp(180px, 26cqi, 310px)"
-            accent="#203d60"
+            radius={0}
+            accent="#171615"
             accentForeground="#ffffff"
+            controlsPlacement="below"
+            showCounter
+            heroNextButton
+            controlsAfter={
+              <div
+                className="development-categories"
+                role="group"
+                aria-label="Development category"
+              >
+                {Object.keys(developments).map((category) => (
+                  <button
+                    key={category}
+                    type="button"
+                    aria-pressed={activeCategory === category}
+                    className={activeCategory === category ? "is-active" : ""}
+                    onClick={() => setActiveCategory(category)}
+                  >
+                    {category}
+                  </button>
+                ))}
+              </div>
+            }
             autoplay
             interval={3000}
           />
