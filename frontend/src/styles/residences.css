@@ -1,0 +1,794 @@
+.residences-container {
+  width: min(100% - 144px, 1320px);
+  margin: 0 auto;
+}
+
+.residences-eyebrow {
+  margin-bottom: 17px;
+  color: #686868;
+}
+
+.residences-rule {
+  height: 1px;
+  margin-bottom: 20px;
+  background: #d9d4ce;
+}
+
+.residences-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(34px, 8vw, 110px);
+  align-items: start;
+}
+
+.residences-intro h2,
+.residences-list h2,
+.featured-residence h2,
+.residences-design h2,
+.residences-amenities h2,
+.residences-location h2,
+.residences-gallery h2,
+.residences-cta h2 {
+  margin: 0;
+  font-size: clamp(28px, 3vw, 38px);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 1.25;
+}
+
+.residences-intro h2 strong,
+.residences-list h2 strong,
+.featured-residence h2 strong,
+.residences-design h2 strong,
+.residences-amenities h2 strong,
+.residences-location h2 strong,
+.residences-gallery h2 strong,
+.residences-cta h2 strong {
+  font-weight: 700;
+}
+
+.residences-copy,
+.residences-lead {
+  max-width: 560px;
+  margin: 2px 0 0;
+  color: #454545;
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+.residences-copy p {
+  margin: 0 0 15px;
+}
+
+/* Hero */
+
+.residences-hero {
+  position: relative;
+  display: flex;
+  min-height: 100svh;
+  align-items: flex-end;
+  overflow: hidden;
+  color: #fff;
+  background-color: #393a35;
+}
+
+.residences-hero-image,
+.residences-hero-shade {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.residences-hero-image {
+  object-fit: cover;
+  object-position: center 55%;
+}
+
+.residences-hero-shade {
+  background: linear-gradient(
+    180deg,
+    rgb(22 20 18 / 30%) 0%,
+    rgb(22 20 18 / 6%) 40%,
+    rgb(22 20 18 / 70%) 100%
+  );
+}
+
+.residences-hero-inner {
+  position: relative;
+  z-index: 1;
+  width: min(100% - 144px, 1320px);
+  margin: 0 auto;
+  padding: 160px 0 clamp(36px, 7svh, 64px);
+}
+
+.residences-hero-eyebrow {
+  margin-bottom: 20px;
+  color: #e0c4a7;
+}
+
+.residences-hero h1 {
+  margin: 0;
+  font-size: clamp(48px, 7.4vw, 104px);
+  font-weight: 600;
+  letter-spacing: -0.055em;
+  line-height: 0.98;
+}
+
+.residences-hero h1 em {
+  color: #dfc6a9;
+  font-style: normal;
+}
+
+.residences-hero-bottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  margin-top: clamp(28px, 5svh, 48px);
+  padding-top: 22px;
+  border-top: 1px solid rgb(255 255 255 / 36%);
+}
+
+.residences-hero-bottom p {
+  max-width: 440px;
+  margin: 0;
+  color: rgb(255 255 255 / 90%);
+  font-size: clamp(15px, 1.4vw, 18px);
+  line-height: 1.55;
+}
+
+.residences-hero-bottom a {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 14px;
+  color: rgb(255 255 255 / 82%);
+  font-size: 12px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  transition: opacity 180ms ease;
+}
+
+.residences-hero-bottom a:hover {
+  opacity: 0.7;
+}
+
+/* Introduction */
+
+.residences-intro {
+  padding: clamp(72px, 9vw, 120px) 0;
+  background: #fff;
+}
+
+.residences-facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: clamp(40px, 6vw, 72px) 0 0;
+  border-top: 1px solid #d9d4ce;
+}
+
+.residences-facts div {
+  padding: 24px 24px 0 0;
+}
+
+.residences-facts div + div {
+  padding-left: 24px;
+  border-left: 1px solid #d9d4ce;
+}
+
+.residences-facts dt {
+  font-family: "Cabinet Grotesk", sans-serif;
+  font-size: clamp(36px, 4vw, 56px);
+  font-weight: 600;
+  letter-spacing: -0.05em;
+  line-height: 1;
+}
+
+.residences-facts dd {
+  margin: 8px 0 0;
+  color: #9e8060;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* Residence list */
+
+.residences-list {
+  padding: clamp(72px, 9vw, 120px) 0;
+  background: var(--cream);
+  scroll-margin-top: 0;
+}
+
+.residences-filters {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-self: end;
+}
+
+.residences-filters button {
+  background: transparent;
+}
+
+.residences-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(28px, 3vw, 40px) clamp(14px, 2vw, 24px);
+  margin-top: clamp(36px, 5vw, 56px);
+}
+
+.residence-card {
+  display: block;
+}
+
+.residence-card-image {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  border-radius: 18px;
+  background: #e9dfd3;
+}
+
+.residence-card-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 600ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.residence-card:hover .residence-card-image img {
+  transform: scale(1.04);
+}
+
+.residence-status {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  color: #fff;
+  background: rgb(210 210 210 / 22%);
+  backdrop-filter: blur(12px);
+  font-size: 11px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.residence-card-body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 16px;
+}
+
+.residence-card-body h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.residence-card-body p {
+  margin: 4px 0 0;
+  color: #4d4a47;
+  font-size: 13px;
+}
+
+.residence-card-arrow {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid #b49a79;
+  border-radius: 50%;
+  color: #b49a79;
+  transition:
+    color 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease;
+}
+
+.residence-card:hover .residence-card-arrow {
+  border-color: #203d60;
+  color: #fff;
+  background: #203d60;
+}
+
+/* Featured residence */
+
+.featured-residence {
+  padding: clamp(72px, 9vw, 120px) 0;
+  background: #fff;
+}
+
+.featured-residence-inner {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: clamp(40px, 7vw, 110px);
+  align-items: center;
+}
+
+.featured-residence-media img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 4.6;
+  border-radius: 24px;
+  object-fit: cover;
+}
+
+.featured-residence-name {
+  display: block;
+  margin: 8px 0 14px;
+  color: #b49a79;
+  font-family: "Cabinet Grotesk", sans-serif;
+  font-size: clamp(44px, 5vw, 72px);
+  font-weight: 600;
+  letter-spacing: -0.05em;
+  line-height: 1;
+}
+
+.featured-residence-copy {
+  max-width: 520px;
+  margin: 18px 0 0;
+  color: #454545;
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+.residences-specs {
+  margin: 24px 0 30px;
+  border-top: 1px solid #d9d4ce;
+}
+
+.residences-specs div {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border-bottom: 1px solid #d9d4ce;
+  font-size: 13px;
+}
+
+.residences-specs dt {
+  color: #9e8060;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.residences-specs dd {
+  margin: 0;
+  color: #34312e;
+  text-align: right;
+}
+
+/* Design & architecture */
+
+.residences-design {
+  padding: 0 0 clamp(72px, 9vw, 120px);
+  background: #fff;
+}
+
+.residences-design .residences-container {
+  padding-top: clamp(56px, 7vw, 96px);
+  border-top: 1px solid #d9d4ce;
+}
+
+.residences-design-image {
+  overflow: hidden;
+  margin-top: clamp(36px, 5vw, 56px);
+  border-radius: 24px;
+}
+
+.residences-design-image img {
+  display: block;
+  width: 100%;
+  height: clamp(280px, 42vw, 560px);
+  object-fit: cover;
+}
+
+.residences-principles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(20px, 4vw, 56px);
+  margin-top: clamp(32px, 4vw, 48px);
+}
+
+.residences-principles article {
+  padding-top: 18px;
+  border-top: 1px solid #d9d4ce;
+}
+
+.residences-principles span {
+  color: #b49a79;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+}
+
+.residences-principles h3 {
+  margin: 14px 0 0;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.residences-principles p {
+  margin: 8px 0 0;
+  color: #4d4a47;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+/* Lifestyle & amenities */
+
+.residences-amenities {
+  padding: clamp(72px, 9vw, 120px) 0;
+  background: var(--cream);
+}
+
+.residences-amenities-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 7vw, 110px);
+  align-items: center;
+}
+
+.residences-amenities-media img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 4.4;
+  border-radius: 24px;
+  object-fit: cover;
+}
+
+.residences-amenities .residences-lead {
+  margin-top: 18px;
+}
+
+.residences-amenity-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 24px;
+  margin: 28px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.residences-amenity-list li {
+  display: flex;
+  min-height: 52px;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid #d9d4ce;
+  color: #34312e;
+  font-size: 14px;
+}
+
+.residences-amenity-list li::before {
+  flex: 0 0 auto;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #b49a79;
+  content: "";
+}
+
+/* Location & connectivity */
+
+.residences-location {
+  padding: clamp(72px, 9vw, 120px) 0;
+  color: #e4eaf1;
+  background: #1d3a5d;
+}
+
+.residences-location-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 8vw, 110px);
+  align-items: start;
+}
+
+.residences-location-eyebrow {
+  margin-bottom: 17px;
+  color: #c3a274;
+}
+
+.residences-location h2 {
+  color: #fff;
+}
+
+.residences-location-copy {
+  max-width: 440px;
+  margin: 18px 0 0;
+  color: #d5deea;
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.residences-connections {
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid rgb(226 234 243 / 30%);
+  list-style: none;
+}
+
+.residences-connections li {
+  display: flex;
+  min-height: 60px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border-bottom: 1px solid rgb(226 234 243 / 30%);
+  font-size: 14px;
+}
+
+.residences-connections strong {
+  color: var(--ochre);
+  font-family: "Cabinet Grotesk", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Gallery */
+
+.residences-gallery {
+  padding: clamp(72px, 9vw, 120px) 0;
+  background: #fff;
+}
+
+.residences-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: clamp(150px, 17vw, 250px);
+  gap: clamp(10px, 1.4vw, 16px);
+  margin-top: clamp(36px, 5vw, 56px);
+}
+
+.residences-gallery-grid figure {
+  overflow: hidden;
+  margin: 0;
+  border-radius: 18px;
+  background: #e9dfd3;
+}
+
+.residences-gallery-grid figure:nth-child(1) {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.residences-gallery-grid figure:nth-child(6) {
+  grid-column: span 2;
+}
+
+.residences-gallery-grid img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 600ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.residences-gallery-grid figure:hover img {
+  transform: scale(1.04);
+}
+
+/* CTA */
+
+.residences-cta {
+  position: relative;
+  display: flex;
+  min-height: clamp(520px, 76svh, 720px);
+  align-items: center;
+  overflow: hidden;
+  color: #fff;
+  background: #b5834f;
+}
+
+.residences-cta-image,
+.residences-cta-shade {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.residences-cta-image {
+  object-fit: cover;
+}
+
+.residences-cta-shade {
+  background: linear-gradient(
+    90deg,
+    rgb(28 22 16 / 72%) 0%,
+    rgb(44 32 20 / 44%) 50%,
+    rgb(44 32 20 / 8%) 100%
+  );
+}
+
+.residences-cta-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.residences-cta-eyebrow {
+  margin-bottom: 22px;
+  color: #e0c4a7;
+}
+
+.residences-cta h2 {
+  font-size: clamp(32px, 4.2vw, 56px);
+  line-height: 1.12;
+}
+
+.residences-cta-copy {
+  max-width: 440px;
+  margin: 22px 0 32px;
+  color: rgb(255 255 255 / 88%);
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+.residences-cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.residences-cta-outline {
+  color: #fff;
+}
+
+.residences-cta-outline:hover {
+  color: var(--ink);
+  background: var(--cream);
+  border-color: var(--cream);
+}
+
+@media (max-width: 1000px) {
+  .residences-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .residences-gallery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .residences-gallery-grid figure:nth-child(1) {
+    grid-row: span 1;
+  }
+}
+
+@media (max-width: 760px) {
+  .residences-container,
+  .residences-hero-inner {
+    width: calc(100% - 40px);
+  }
+
+  .residences-hero-inner {
+    padding: 120px 0 32px;
+  }
+
+  .residences-hero h1 {
+    font-size: clamp(44px, 12.5vw, 72px);
+  }
+
+  .residences-hero-bottom {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .residences-intro,
+  .residences-list,
+  .featured-residence,
+  .residences-amenities,
+  .residences-location,
+  .residences-gallery {
+    padding: 56px 0;
+  }
+
+  .residences-design {
+    padding-bottom: 56px;
+  }
+
+  .residences-design .residences-container {
+    padding-top: 56px;
+  }
+
+  .residences-split,
+  .featured-residence-inner,
+  .residences-amenities-inner,
+  .residences-location-inner {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .featured-residence-inner,
+  .residences-amenities-inner {
+    gap: 36px;
+  }
+
+  .residences-intro h2,
+  .residences-list h2,
+  .featured-residence h2,
+  .residences-design h2,
+  .residences-amenities h2,
+  .residences-location h2,
+  .residences-gallery h2 {
+    font-size: 26px;
+  }
+
+  .residences-copy,
+  .residences-lead,
+  .featured-residence-copy {
+    font-size: 15px;
+  }
+
+  .residences-facts div {
+    padding: 18px 10px 0 0;
+  }
+
+  .residences-facts div + div {
+    padding-left: 10px;
+  }
+
+  .residences-facts dd {
+    font-size: 10px;
+  }
+
+  .residences-filters {
+    justify-content: flex-start;
+  }
+
+  .residences-grid,
+  .residences-principles,
+  .residences-amenity-list {
+    grid-template-columns: 1fr;
+  }
+
+  .residences-specs div {
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2px;
+    padding: 10px 0;
+  }
+
+  .residences-specs dd {
+    text-align: left;
+  }
+
+  .residences-gallery-grid {
+    grid-auto-rows: 150px;
+    gap: 8px;
+  }
+
+  .residences-gallery-grid figure {
+    border-radius: 14px;
+  }
+
+  .residences-gallery-grid figure:nth-child(1),
+  .residences-gallery-grid figure:nth-child(6) {
+    grid-column: 1 / -1;
+  }
+
+  .residences-cta {
+    min-height: max(76svh, 520px);
+  }
+
+  .residences-cta-shade {
+    background: linear-gradient(
+      180deg,
+      rgb(28 22 16 / 50%) 0%,
+      rgb(28 22 16 / 72%) 100%
+    );
+  }
+
+  .residences-cta-copy {
+    font-size: 15px;
+  }
+}

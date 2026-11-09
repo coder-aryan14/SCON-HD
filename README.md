@@ -23,6 +23,10 @@ Dependencies are managed in `frontend/package.json` and locked in `frontend/pack
 ## Features
 
 - Responsive homepage sections: Hero, About, Developments, Redevelopment, Contact, and Footer
+- About page at `/about`: Hero, Our Story, Vision & Mission, Values, Team, Journey, and a closing CTA
+- Residences page at `/residences`: Hero, Introduction, filterable residence list, Featured Residence, Design & Architecture, Amenities, Location, Gallery, and a closing CTA
+- Redevelopment page at `/redevelopment`: Hero, Introduction, Why Redevelopment, Expertise, Process, stakeholder Benefits, Commitments, FAQs, and a closing CTA
+- Contact page at `/contact`: Hero, Introduction, Contact Information, Inquiry Form, Office Location map, Business Hours, FAQs, and a closing CTA
 - Hero background animation that advances and reverses through supplied image frames while scrolling
 - Scroll-triggered section content reveals, with reduced-motion preferences respected
 - Residential and Commercial project gallery controls

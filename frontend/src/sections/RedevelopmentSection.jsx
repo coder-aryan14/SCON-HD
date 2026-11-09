@@ -36,7 +36,7 @@ export default function RedevelopmentSection() {
             </p>
             <a
               className="button button-dark redevelopment-cta"
-              href="mailto:hello@scon.com?subject=Discover%20Navotsav"
+              href="/redevelopment"
             >
               Discover Navotsav
             </a>

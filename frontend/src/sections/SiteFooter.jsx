@@ -6,7 +6,7 @@ export default function SiteFooter() {
       <div className="site-footer-inner">
         <div className="footer-main" data-scroll-reveal="1">
           <div className="footer-contact">
-            <a className="footer-hd-mark" href="#home" aria-label="SCON-HD home">
+            <a className="footer-hd-mark" href="/#home" aria-label="SCON-HD home">
               <img src="/images/scon-hd-brand-mark.png" alt="HD" />
             </a>
             <address>
@@ -66,20 +66,20 @@ export default function SiteFooter() {
 
           <nav className="footer-navigation" aria-label="Footer navigation">
             <div className="footer-link-column">
-              <a href="#developments">Ongoing Projects</a>
-              <a href="#developments">Completed Projects</a>
-              <a href="#developments">Upcoming Projects</a>
-              <a href="#navotsav">Redevelopment</a>
-              <a href="#developments">Media</a>
-              <a href="#contact">Privacy Policy</a>
-              <a href="#contact">Terms &amp; Conditions</a>
-              <a href="#contact">Contact us</a>
+              <a href="/#developments">Ongoing Projects</a>
+              <a href="/#developments">Completed Projects</a>
+              <a href="/#developments">Upcoming Projects</a>
+              <a href="/redevelopment">Redevelopment</a>
+              <a href="/#developments">Media</a>
+              <a href="/#contact">Privacy Policy</a>
+              <a href="/#contact">Terms &amp; Conditions</a>
+              <a href="/contact">Contact us</a>
             </div>
             <div className="footer-link-column">
-              <a href="#developments">3 BHK Premium</a>
-              <a href="#developments">3-4 BHK Ultra-luxurious</a>
-              <a href="#developments">Selected Developments</a>
-              <a href="#developments">Luxurious Homes in Pune</a>
+              <a href="/#developments">3 BHK Premium</a>
+              <a href="/#developments">3-4 BHK Ultra-luxurious</a>
+              <a href="/#developments">Selected Developments</a>
+              <a href="/#developments">Luxurious Homes in Pune</a>
             </div>
           </nav>
         </div>
@@ -87,7 +87,7 @@ export default function SiteFooter() {
         <div className="footer-brand-row" data-scroll-reveal="2">
           <a
             className="footer-partner-brand"
-            href="#home"
+            href="/#home"
             aria-label="SCON-HD Developers"
           >
             <img
